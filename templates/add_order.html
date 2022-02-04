@@ -1,0 +1,17 @@
+<!--Файл add_order.html, является файлом, в котором хранятся инструменты работников и администратора-->
+{% block body %}
+{% if tip == 'item_admin' %}<!--Если тип администратора, то он может добавить товар в БД-->
+    <h1>Товары</h1>
+    <form action="{{ url_for('add_item') }}" method=post><!--Отправляет значения-->
+    <dl>
+      <dt>Имя книги:
+        <dd><input type=text name=item_name>
+      <dt>Автор:
+        <dd><input type=text name=author>
+      <dt>Ссылка на изображение:
+        <dd><input type=text name=href>
+        <dd><input type=submit value=Добавить>
+    </dl>
+    </form>
+{% endif %}
+{% endblock %}

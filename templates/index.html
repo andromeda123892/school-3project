@@ -1,0 +1,22 @@
+{% extends 'base.html' %}<!--Наследование шаблона-->
+<!--Главная страница-->
+{% block title %}
+Библиотека
+{% endblock %}<!--Заголовок страницы-->
+
+{% block body %}
+{% if sess %}
+<h1>Привет {{sess[0]}}</h1>
+{% endif %}
+<div class="text-center">
+<main role="main" class="inner cover">
+        <h1 class="cover-heading">Библиотека</h1>
+    <div class="container"><img class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Миниатюра [100% x225]" style="height: 600px; width: 100%; display: block;" src="https://www.kaluga-poisk.ru/userfiles/images/2%2875%29.jpg" data-holder-rendered="true"></div>
+        <p class="lead">Все книги мира собранные на нашем сайте.
+            <br> .</p>
+        <p class="lead">
+          <a href="/catalog" class="btn btn-lg btn-secondary">Перейти в каталог</a>
+        </p>
+      </main>
+</div>
+{% endblock %}

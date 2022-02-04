@@ -1,0 +1,27 @@
+{% extends 'base.html' %}<!--Наследует шаблон-->
+{% block body %}
+<div class="container">
+{% if tip == 'login'%}<!--Если происходит авторизация-->
+    <div class="container text-center">
+  <h2>Login</h2>
+          <div class="d-flex justify-content-center">
+  {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
+  <form action="{{ url_for('employee') }}" method=post>
+    <dl>
+      <dt>Username:
+      <dd><input type=text name=username>
+      <dt>Password:
+      <dd><input type=password name=password>
+      <dd><input type=submit value=Login>
+    </dl>
+  </form>
+                  </div>
+  </div>
+{% endif%}
+<!--#Панель работы-->
+{% if tip == 'panel'%}<!--Если личный кабинет работника-->
+    <h1>Привет, работник {{ session['employee'][0] }}</h1>
+    <a class="p-2 text-dark flex-fill" href="/panel/add_item">Добавить товары:</a>
+{% endif %}
+</div>
+{% endblock %}
