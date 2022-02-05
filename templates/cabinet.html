@@ -11,9 +11,16 @@
     <h1 class="bg-secondary">Книжная история:</h1>
     {% if books %}<!--Отображение заказов-->
     {% for i in books%}
-    <h4>Артикль книги - {{i[0]}}, Дата получения - {{i[1]}}, Дата сдачи - {{i[2]}}, {{i[4]}} - {{i[5]}}</h4>
-                <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Миниатюра [100% x225]" style="height: 300px; width: 15%; display: block;" src={{i[6]}} data-holder-rendered="true">
+<div class="shadow-sm bg-white rounded"
+<div class="card">
+  <div class="card">
+      <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Миниатюра [100% x225]" style="height: 300px; width: 15%; display: block;" src={{i[6]}} data-holder-rendered="true">
+    <h4>Артикль книги - {{i[0]}}<h4>
+        <h4>Дата получения - {{i[1]}} <h4>
+            <h4>Дата сдачи - {{i[2]}}<h4>
+            <h4>{{i[4]}} - {{i[5]}}</h4>
 
+</div>
     {% endfor%}
     {% endif %}
 
@@ -31,6 +38,5 @@
             <dd><input type=submit value=Изменить>
         </dl>
     </form>
-</div>
 {% endif %}
 {% endblock %}

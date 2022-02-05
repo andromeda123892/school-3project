@@ -345,6 +345,7 @@ def item(id):
                 f"""SELECT *
                     FROM "book"
                     WHERE id = {id}
+                    
                """
             )
             result = cursor.fetchall()#Данные об предмете по id
@@ -362,8 +363,10 @@ def item(id):
             try:
                 session['basket'] += [{'tip': 'item',
                                        'id': id}]#Заполнение корзины товаром
+
             except:
                 return "Очистите корзину"
+
 
     return render_template('shop.html', id=id, item=result, tip='item')
 
@@ -373,7 +376,29 @@ def item(id):
 def checkout():
     if 'logged_in' in session and session['basket']:#Сперва происходит наличие сессий корзины и авторизации.
         if 'basket' in session:
+            result2 = []
             items = session['basket']#Объявление в переменной всех предметов и услуг в корзине.
+            try:
+                connection = psycopg2.connect(
+                    host=host,
+                    user=user,
+                    password=password,
+                    database=db_name
+                )
+                with connection.cursor() as cursor:
+                    cursor.execute(f"""
+                                        SELECT href, id, author, name
+                                        FROM "book"
+
+""")
+                    result2 = cursor.fetchall()
+                    print(result2)
+            except Exception as _ex:
+                print("[INFO] Error while working with PostgreSQL", _ex)
+            finally:
+                if connection:
+                    connection.close()
+                    print("[INFO] PostgreSQL connection closed")
             if request.method == "POST":
                 try:
                     connection = psycopg2.connect(
@@ -383,7 +408,6 @@ def checkout():
                         database=db_name
                     )
                     with connection.cursor() as cursor:
-
                         cursor.execute(
                             f"""SELECT login, password
                                         FROM "Client"
@@ -394,7 +418,6 @@ def checkout():
                             result = cursor.fetchall()
                         except:
                             pass
-                        print(result)
                         timedate = date.today()
                         timedate3 = datetime.date(timedate.year, timedate.month + 1, timedate.day)
                         print(timedate)
@@ -418,7 +441,7 @@ def checkout():
                     if connection:
                         connection.close()
                         print("[INFO] PostgreSQL connection closed")
-            return render_template('shop.html', tip='checkout', items=items)
+            return render_template('shop.html', tip='checkout', items=items, hrefs=result2)
     else:
         return ('Корзина пуста')
 

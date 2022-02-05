@@ -12,7 +12,7 @@
                             <img class="card-img-top"
                                  data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail"
                                  alt="Миниатюра [100% x225]" style="height: 225px; width: 100%; display: block;"
-                                 src="https://brilliant24.ru/files/cat/template_01.png" data-holder-rendered="true">
+                                 src={{i[3]}} data-holder-rendered="true">
                             <div class="card-body">
                                 <p class="card-text"><font style="vertical-align: inherit;"><font
                                         style="vertical-align: inherit;">{{ i[0]}} {{ i[2]}}
@@ -43,28 +43,33 @@
             <div class="container py-5">
                 <div class="row justify-content-center">
     {% for i in items%}<!--Отображение всех предметов и услуг в корзине-->
-
+                    {% for j in hrefs %}
+                    {% if i['id'] == j[1] %}
                     <div class="col-md-4">
                         <div class="card mb-4 box-shadow">
                             <img class="card-img-top"
                                  data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail"
                                  alt="Миниатюра [100% x225]" style="height: 225px; width: 100%; display: block;"
-                                 src="https://brilliant24.ru/files/cat/template_01.png" data-holder-rendered="true">
+                                 src= {{ j[0] }} data-holder-rendered="true">
                             <div class="card-body">
                                 <p class="card-text"><font style="vertical-align: inherit;"><font
                                         style="vertical-align: inherit;">
                                     {{ i[0]}}
-                                </font><font style="vertical-align: inherit;"><br>id: {{ i['id']}}
+                                </font><font style="vertical-align: inherit;"><br>id: {{ i['id']}} <br>Автор {{ j[2] }}
+                                    <br><<{{j[3]}}>>
 
                                 </font></font></p>
                             </div>
                         </div>
                     </div>
+                    {% endif %}
+                    {% endfor %}
 
 
     <br>
     {% endfor %}
                                             <form action="{{ url_for('checkout') }}" method=post>
+
         <dd><input type=submit value=Оформить></dd>
         </dl>
     </form>
